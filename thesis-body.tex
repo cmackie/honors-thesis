@@ -78,6 +78,7 @@ operators.}
 \label{fig:operators}
 \end{figure}
 
+\noindent\\
 Misuse of unsigned values can be categorized as follows:
 
 \begin{itemize}
@@ -85,6 +86,7 @@ Misuse of unsigned values can be categorized as follows:
   \item Mixing signed and unsigned arguments in a computation.
 \end{itemize}
 
+\noindent\\
 See Figure~\ref{fig:misuse} for
 an example of misuses of unsigned values. We see that the main issue with
 mixing signed and unsigned values is it is not clear how we should interpret the
@@ -125,6 +127,7 @@ System.out.println(sum);
 \label{fig:misuse}
 \end{figure}
 
+\noindent\\
 The first line of defense against most bugs is the compiler. When the
 compiler is unable to catch bugs, it falls on the programmer to identify and
 eliminate them, which is prone to human error. The Java compiler
@@ -179,6 +182,7 @@ Qualifiers in gray are used internally, and should not be written.}
 \label{fig:type-hierarchy}
 \end{figure}
 
+\noindent\\
 We were initially surprised that it was necessary to include the \<@Constant>
 qualifier in our system. As it turns out, this is extremely useful for the
 precision of our type system. It allows users to represent bit patterns
@@ -203,6 +207,7 @@ Signedness Type System are as follows:
   \item Non-integral expressions use \<@UnknownSignedness>.
 \end{enumerate}
 
+\noindent\\
 Some of these type introduction rules require further explanation. As
 previously stated, we wish to allow users to represent signed and unsigned
 literals however they please, so we infer all manifest literals as
@@ -211,7 +216,7 @@ integral variables will be treated by Java as signed, unless handled
 carefully by the programmer. Therefore, it is natural to make \<@Signed> the
 default in the absence of a user specified annotation. This means that
 the only way to introduce \<@Unsigned> into a program is to annotate it
-explicitely. This is only problematic when a developer does not know the
+explicitly. This is only problematic when a developer does not know the
 full specification of the program. Some of these rules lead to unnecessary
 imprecisions in the Signedness Type System. Later, we will identify such
 situations and patches to the system to fix them.\\
@@ -232,6 +237,7 @@ These type rules are as follows:
   \item Arithmetic right shifts may only be applied to signed values.
 \end{itemize}
 
+\noindent\\
 We have already motivated the need for the first two rules, but it may come
 as a surprise that shifts get so much special treatment. As it turns out,
 the right operand of shifts is bounded within the interval $[0, 64]$. As a
@@ -263,7 +269,7 @@ signedness of the shift becomes irrelevent. See Figure~\ref{fig:maskedshift}
 for an example of this situation. To solve this problem, we check if every
 right shift is nested in a mask. If it is, we then compare the shift value
 and mask literal to see if the bits introduced by the shift are masked away.
-If they are, then we issue no error. Otherwise, we refer back to the previous
+If they are, then we issue no error. Otherwise, we defer back to the previous
 behavior.
 
 \begin{figure}
@@ -300,13 +306,14 @@ issue an error. If not, then we defer to the prevous behavior.
 
 \begin{figure}
 \begin{lstlisting}
-// The Signedness Checker issues a warning for this shift expression
-// because an unsigned right shift is applied to a signed operand.
-// However, the result of the shift is casted from an int to a byte,
-// so only the 8 lower order bits matter. Since val is only shifted
-// by 8 bits, it is impossible for the bits introduced by the shift
-// to enter the 8 lower order bits of the result, and so the
-// signedness of the shift is irrelevent.
+// The Signedness Checker issues a warning for this shift
+// expression because an unsigned right shift is applied
+// to a signed operand. However, the result of the shift
+// is casted from an int to a byte, so only the 8 lower
+// order bits matter. Since val is only shifted by 8 bits,
+// it is impossible for the bits introduced by the shift
+// to enter the 8 lower order bits of the result, and so
+// the signedness of the shift is irrelevent.
 
 // val : @Signed int
 ... (byte) (val >>> 8) ...
@@ -331,13 +338,14 @@ Signedness Type System without this change.
 
 \begin{figure}
 \begin{lstlisting}
-// The Signedness Checker issues a warning because the expression
-// (vis[cluster>>3] & 0xFF) has type @Unsigned, but the expression
-// (1 << (cluster & 7)) has type @Signed when really it could be
-// interpreted as signed or unsigned, and should have type @Constant.
+// The Signedness Checker issues a warning because the
+// expression (vis[cluster>>3] & 0xFF) has type
+// @Unsigned, but the expression (1 << (cluster & 7))
+// has type @Signed when really it could be interpreted
+// as signed or unsigned, and should have type @Constant.
 
 // vis : @Unsigned byte[], cluster : @Signed int
-(vis[cluster>>3] & 0xFF) & (1 << (cluster & 7))
+... (vis[cluster>>3] & 0xFF) & (1 << (cluster & 7)) ...
 \end{lstlisting}
 \caption{An example of code for which the Signedness Checker will issue a false
 alarm due to shift propogation, from our case study of jake2.}
@@ -454,6 +462,7 @@ standard compilation.}
 % plus about 100 for the type qualifiers (almost all of which are imports
 % or meta-annotations).
 
+\noindent\\
 Our pluggable type system implementation consists of roughly 324 statements.
 One of its largest components is a run-time library that provides
 JDK~8 unsignedness functionality to earlier versions of Java.  The
