@@ -1,4 +1,4 @@
-\documentclass{acmart}
+\documentclass[acmsmall]{acmart}
 
 \usepackage{listings}
 \usepackage{graphicx}
@@ -52,6 +52,13 @@
 
 % Force only one figure per page
 \setcounter{totalnumber}{1}
+
+% Adjust table of contents spacing
+\makeatletter
+\renewcommand{\l@section}{\@dottedtocline{1}{1.5em}{2.6em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{4.0em}{3.6em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{7.4em}{4.5em}}
+\makeatother
 
 \begin{document}
 
