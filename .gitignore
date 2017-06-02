@@ -1,0 +1,8 @@
+bib
+build/
+thesis-sigconf.bbl
+thesis-sigconf.blg
+thesis-sigconf.log
+thesis-sigconf.out
+thesis-sigconf.pdf
+thesis-sigconf.toc

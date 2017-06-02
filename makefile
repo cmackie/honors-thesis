@@ -2,12 +2,21 @@
 
 SRC=thesis-sigconf
 
-all: $(SRC)
+all: bib-update
+	latexmk -pdf -interaction=nonstopmode $(SRC).tex
 
-$(SRC): $(SRC).tex
-	mkdir -p build
-	latexmk -f -pdf -jobname=build/$(SRC) '\input{$(SRC)}'
-	latexmk -c -jobname=build/$(SRC)
 
-clean:
-	rm -rf build
+export BIBINPUTS ?= .:bib
+bib:
+ifdef PLUMEBIB
+	ln -s ${PLUMEBIB} $@
+else
+	git clone https://github.com/mernst/plume-bib.git $@
+endif
+.PHONY: bib-update
+bib-update: bib
+# Even if this command fails, it does not terminate the make job.
+# However, to skip it, invoke make as:  make NOGIT=1 ...
+ifndef NOGIT
+	-(cd bib && git pull && make)
+endif
