@@ -1,10 +1,13 @@
 .PHONY: all clean
 
-SRC=thesis-sigconf
+COVER=coverpage
+SRC=MackieChristopherThesis
 
 all: bib-update
 	latexmk -pdf -interaction=nonstopmode $(SRC).tex
 
+cover:
+	latexmk -pdf -interaction=nonstopmode $(COVER).tex
 
 export BIBINPUTS ?= .:bib
 bib:

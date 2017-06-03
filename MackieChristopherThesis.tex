@@ -52,7 +52,7 @@
 \protected\def\codeid#1{\ifmmode{\mbox{\sf{#1}}}\else{\sf #1}\fi}
 
 % Force only one figure per page
-\setcounter{totalnumber}{1}
+%\setcounter{totalnumber}{1}
 
 % Adjust table of contents spacing
 \makeatletter
@@ -66,61 +66,9 @@
 \setlength{\paperheight}{11in}
 \setlength{\paperwidth}{8.5in}
 
-\begin{titlepage}
-    \begin{center}
-        \vspace{1cm}
-
-        \Huge
-        \textbf{Preventing Signedness Errors in Numerical Computations in Java}
-
-        \vspace{1cm}
-        \LARGE
-        by
-
-        \vspace{1cm}
-
-        \textbf{Christopher A. Mackie}
-
-        \vspace{0.5cm}
-        Supervised by \textbf{Michael D. Ernst}
-
-        \vfill
-
-        A senior thesis submitted in partial fulfillment of\\
-        the requirements for the degree of
-
-        \vspace{1cm}
-        \Huge
-        \textbf{Bachelor of Science}\\
-        \textbf{With Departmental Honors}
-
-        \vspace{0.5cm}
-        \Huge
-        \textbf{Computer Science \& Engineering}
-
-        \vspace{0.5cm}
-        \Huge
-        \textbf{University of Washington}
-
-        \vspace{0.5cm}
-        \Huge
-        \textbf{June 2017}
-
-        \vspace{1cm}
-        \Large
-        Presentation of work given on\quad \makebox[2in]{\hrulefill}
-
-        \vspace{0.5cm}
-        Thesis and presentation approved by\quad \makebox[2in]{\hrulefill}
-
-        \vspace{0.5cm}
-        Date\quad \makebox[2in]{\hrulefill}
-
-    \end{center}
-\end{titlepage}
-
 \input{thesis-body}
 
+\newpage
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibstring-unabbrev,ernst,types,crossrefs,thesis}
 
